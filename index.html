@@ -20,12 +20,16 @@
     <div id="reactor-interface" class="hidden">
         <!-- CUSTOM CURSOR -->
         <div class="custom-cursor"></div>
+        <canvas id="particles"></canvas>
 
-        <!-- NAVIGATION CONTROL PANEL -->
-        <nav id="control-panel">
+
+        <div class="main-content">
+            <!-- NAVIGATION CONTROL PANEL -->
+            <nav id="control-panel">
             <div class="panel-header">
-                <div class="logo-title">ATOMIC H.</div>
-                <div class="logo-subtitle">A.H.E.U. ONLINE</div>
+                <img src="assets/logo-1.png" alt="AtomicHamsters Logo" class="nav-logo">
+                <div class="logo-title">AtomicHamsters</div>
+                <div class="logo-subtitle">REACTOR ONLINE</div>
             </div>
             <ul>
                 <li><a href="#home_base" class="nav-button active" data-section="home_base">[HOME_BASE]</a></li>
@@ -34,13 +38,6 @@
                 <li><a href="#transmissions" class="nav-button" data-section="transmissions">[TRANSMISSIONS]</a></li>
                 <li><a href="#contact_grid" class="nav-button" data-section="contact_grid">[CONTACT_GRID]</a></li>
             </ul>
-            <div class="panel-footer">
-                <label class="switch-label" for="containment-switch">CONTAINMENT MODE</label>
-                <label class="switch">
-                    <input type="checkbox" id="containment-switch">
-                    <span class="slider"></span>
-                </label>
-            </div>
         </nav>
 
         <!-- CONTENT DISPLAY -->
@@ -49,21 +46,26 @@
             <!-- SECTION 1: HOME BASE -->
             <section id="home_base" class="content-section active">
                 <div class="hero-container">
-                    <div class="hero-logo-container">
-                        <img src="logo.png" alt="AtomicHamsters Logo" class="hero-logo">
-                        <div class="energy-conduit"></div>
-                    </div>
                     <div class="hero-text">
                         <h1>GENERATING THE FUTURE.</h1>
                         <p>AtomicHamsters harnesses chaotic energy to build intelligent systems. We are the architects of next-generation AI, powering creativity and redefining digital interaction. Welcome to the core.</p>
                     </div>
                     <div class="energy-bars">
                         <div class="bar-label">SYSTEM POWER</div>
-                        <div class="bar-container"><div class="bar" style="width: 98%;"></div></div>
+                        <div class="bar-container">
+                            <div class="bar bar-1"></div>
+                            <span class="bar-percent">92%</span>
+                        </div>
                         <div class="bar-label">AI COGNITION</div>
-                        <div class="bar-container"><div class="bar" style="width: 95%;"></div></div>
+                        <div class="bar-container">
+                            <div class="bar bar-2"></div>
+                            <span class="bar-percent">88%</span>
+                        </div>
                         <div class="bar-label">CREATIVITY OUTPUT</div>
-                        <div class="bar-container"><div class="bar" style="width: 100%;"></div></div>
+                        <div class="bar-container">
+                            <div class="bar bar-3"></div>
+                            <span class="bar-percent">96%</span>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -141,6 +143,11 @@
             </section>
 
         </main>
+        </div>
+
+
+        <div id="global-copyright">Copyright 2025 AtomicHamsters LLC</div>
+
     </div>
 
     <script src="script.js"></script>

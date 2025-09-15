@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>AtomicHamsters — Reactor Online</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@300;400;700&family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#050505;
+    --panel:#07110b;
+    --neon: #05ff6c;
+    --muted:#9aa19a;
+    --scanline: linear-gradient(transparent 48%, rgba(0,0,0,0.08) 49%, rgba(0,0,0,0.02) 51%, transparent 52%);
+  }
+
+  html,body{
+    height:100%;
+    margin:0;
+    background: radial-gradient(ellipse at center, rgba(3,10,6,0.9) 0%, rgba(0,0,0,0.9) 60%), var(--bg);
+    color: #d6f7df;
+    font-family: "Roboto Mono", monospace;
+    overflow:hidden;
+  }
+
+  .app{
+    display:grid;
+    grid-template-columns: 260px 1fr;
+    height:100vh;
+  }
+
+  /* Sidebar with smoked glass */
+  .nav{
+    background: rgba(5,12,6,0.7);
+    border-right: 1px solid rgba(5,255,108,0.06);
+    padding:28px 20px;
+    position:relative;
+    z-index:5;
+    backdrop-filter: blur(14px) brightness(0.8) saturate(120%);
+  }
+  .nav::before {
+    content:"";
+    position:absolute;
+    inset:0;
+    background: rgba(0,0,0,0.35);
+    mix-blend-mode: multiply;
+    z-index:-1;
+  }
+
+  .logo{display:flex;align-items:center;gap:12px;margin-bottom:26px;}
+  .hamster{width:68px;height:68px;filter: drop-shadow(0 6px 18px rgba(5,255,108,0.28));}
+  .brand{font-family:"Orbitron",sans-serif;font-weight:700;color:var(--neon);text-shadow:0 0 12px rgba(5,255,108,0.28);}
+  .sub{font-size:11px;color:var(--muted);margin-top:-2px;text-transform:uppercase;letter-spacing:1.8px;}
+
+  nav ul{list-style:none;padding:0;margin:28px 0 0 0;}
+  nav li{margin:14px 0;}
+  .nav a{display:block;padding:12px 14px;border-left:2px solid transparent;color: rgba(160,255,200,0.85);text-decoration:none;font-weight:600;}
+  .nav a:hover, .nav a.active{color:var(--neon);border-left-color:var(--neon);}
+
+  .main{position:relative;overflow:hidden;}
+  #particles{position:absolute;inset:0;z-index:0;}
+
+  .panel{
+    position:relative;
+    z-index:2;
+    max-width:980px;
+    margin:56px auto;
+    padding:48px 60px;
+    text-align:center;
+    background: rgba(0,0,0,0.2);
+    border-radius:8px;
+    box-shadow: 0 12px 80px rgba(0,0,0,0.7);
+    border: 1px solid rgba(5,255,108,0.04);
+    backdrop-filter: blur(4px) saturate(120%);
+  }
+  .hero-title{font-family:"Orbitron",sans-serif;font-size:64px;color:var(--neon);text-shadow:0 0 18px rgba(5,255,108,0.3);}
+  .subtitle{max-width:840px;margin:0 auto 32px auto;font-size:16px;color: rgba(200,255,210,0.9);line-height:1.7;}
+
+  .bars{text-align:left;margin-top:26px;max-width:740px;margin-left:auto;margin-right:auto;}
+  .stat{margin:18px 0;}
+  .stat h4{font-size:12px;color:rgba(180,255,190,0.9);margin:0 0 8px 0;}
+  .bar{height:18px;background: rgba(5,255,108,0.06);border-radius:6px;border: 1px solid rgba(5,255,108,0.12);overflow:hidden;}
+  .bar .fill{height:100%;width:0%;background: linear-gradient(90deg, rgba(5,255,108,1), rgba(24,245,135,0.7));transition: width 1.4s ease;}
+
+  @media (max-width:920px){
+    .app{ grid-template-columns: 1fr; }
+    .nav{ display:flex; gap:12px; align-items:center; padding:12px;}
+    .nav nav{ display:none; }
+    .panel{ margin:18px; padding:28px; }
+    .hero-title{ font-size:34px; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="nav">
+    <div class="logo">
+      <div class="hamster">
+        <svg viewBox="0 0 64 64" width="68" height="68" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="32" cy="32" r="30" fill="limegreen" opacity="0.2"/>
+          <circle cx="24" cy="24" r="4" fill="white"/>
+          <circle cx="40" cy="24" r="4" fill="white"/>
+        </svg>
+      </div>
+      <div>
+        <div class="brand">AtomicHamsters</div>
+        <div class="sub">REACTOR ONLINE</div>
+      </div>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#" class="active">[HOME_BASE]</a></li>
+        <li><a href="#">[THE_CORE]</a></li>
+        <li><a href="#">[PROTOCOLS]</a></li>
+        <li><a href="#">[TRANSMISSIONS]</a></li>
+        <li><a href="#">[CONTACT_GRID]</a></li>
+      </ul>
+    </nav>
+    <div style="position:absolute;left:18px;bottom:18px;color:rgba(180,255,200,0.6);font-size:11px;">
+      Copyright 2025 AtomicHamsters LLC
+    </div>
+  </aside>
+
+  <main class="main">
+    <canvas id="particles"></canvas>
+    <section class="panel">
+      <h1 class="hero-title">GENERATING THE FUTURE.</h1>
+      <p class="subtitle">
+        AtomicHamsters harnesses chaotic energy to build intelligent systems. We are the architects of next-generation AI, powering creativity and redefining digital interaction. Welcome to the core.
+      </p>
+      <div class="bars">
+        <div class="stat">
+          <h4>SYSTEM POWER</h4>
+          <div class="bar"><div class="fill" data-fill="82"></div></div>
+        </div>
+        <div class="stat">
+          <h4>AI COGNITION</h4>
+          <div class="bar"><div class="fill" data-fill="88"></div></div>
+        </div>
+        <div class="stat">
+          <h4>CREATIVITY OUTPUT</h4>
+          <div class="bar"><div class="fill" data-fill="93"></div></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+
+<script>
+/* Particles with parallax shift under sidebar */
+(function(){
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let w = canvas.width = innerWidth;
+  let h = canvas.height = innerHeight;
+
+  const config = {
+    particleCount: Math.max(180, Math.floor((w*h)/18000)),
+    maxSize: 12,
+    speed: 0.25,
+    color: { r:5, g:255, b:108 }
+  };
+
+  let particles = [];
+  function rand(min, max){ return Math.random()*(max-min)+min; }
+  function init(){ 
+    particles = [];
+    for(let i=0;i<config.particleCount;i++){
+      particles.push({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        vx: rand(-config.speed, config.speed),
+        vy: rand(-config.speed, config.speed),
+        size: Math.random()*config.maxSize,
+        alpha: Math.random()*0.5 + 0.1
+      });
+    }
+  }
+
+  function draw(){
+    ctx.clearRect(0,0,w,h);
+    for(let p of particles){
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < -30) p.x = w+30;
+      if(p.x > w+30) p.x = -30;
+      if(p.y < -30) p.y = h+30;
+      if(p.y > h+30) p.y = -30;
+
+      let alpha = p.alpha;
+      let size = p.size;
+
+      // if under sidebar region, apply parallax shift + blur
+      if(p.x < 260){
+        ctx.save();
+        ctx.translate(-8, 0); // parallax shift
+        ctx.filter = "blur(4px)";
+        ctx.fillStyle = `rgba(${config.color.r},${config.color.g},${config.color.b},${alpha*0.5})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size, 0, Math.PI*2);
+        ctx.fill();
+        ctx.restore();
+      } else {
+        ctx.fillStyle = `rgba(${config.color.r},${config.color.g},${config.color.b},${alpha})`;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, size, 0, Math.PI*2);
+        ctx.fill();
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  addEventListener('resize', ()=>{
+    w = canvas.width = innerWidth;
+    h = canvas.height = innerHeight;
+    init();
+  });
+
+  init();
+  draw();
+})();
+
+/* Progress bar animation */
+(function(){
+  document.querySelectorAll('.fill').forEach((el,i)=>{
+    const pct = Number(el.dataset.fill);
+    setTimeout(()=>{ el.style.width = pct+"%"; }, 200+i*150);
+  });
+})();
+</script>
+</body>
+</html>
