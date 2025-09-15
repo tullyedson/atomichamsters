@@ -1,0 +1,383 @@
+/* FONT IMPORTS & ROOT VARIABLES */
+:root {
+    --atomic-green: #00ff6a;
+    --dark-charcoal: #1a1a1a;
+    --light-charcoal: #2a2a2a;
+    --glow-color: rgba(0, 255, 106, 0.75);
+    --text-color: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --electric-yellow: #f0ff00;
+    --font-primary: 'Roboto Mono', monospace;
+    --font-display: 'Orbitron', sans-serif;
+    --transition-speed: 0.3s;
+}
+
+body.light-mode {
+    --atomic-green: #008a3a;
+    --dark-charcoal: #f0f0f0;
+    --light-charcoal: #ffffff;
+    --glow-color: rgba(0, 138, 58, 0.75);
+    --text-color: #1a1a1a;
+    --text-secondary: #4a4a4a;
+}
+
+/* GENERAL STYLING */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--dark-charcoal);
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    overflow: hidden;
+    cursor: none;
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+}
+
+h1, h2, h3 {
+    font-family: var(--font-display);
+    color: var(--atomic-green);
+    text-shadow: 0 0 10px var(--glow-color);
+}
+
+p {
+    line-height: 1.8;
+    max-width: 800px;
+}
+
+a {
+    color: var(--atomic-green);
+    text-decoration: none;
+}
+
+/* PRELOADER */
+#preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#preloader-text {
+    font-family: var(--font-primary);
+    color: var(--atomic-green);
+    font-size: 1.2em;
+    white-space: pre-wrap;
+    text-align: left;
+    border-right: 3px solid var(--atomic-green);
+    animation: blink-caret .75s step-end infinite;
+}
+
+@keyframes blink-caret {
+    from, to { border-color: transparent }
+    50% { border-color: var(--atomic-green); }
+}
+
+
+/* MAIN LAYOUT */
+#reactor-interface {
+    display: flex;
+    height: 100vh;
+}
+
+.hidden {
+    display: none;
+    opacity: 0;
+}
+
+/* CUSTOM CURSOR */
+.custom-cursor {
+    width: 25px;
+    height: 25px;
+    border: 2px solid var(--atomic-green);
+    border-radius: 50%;
+    position: fixed;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.1s ease-out;
+    box-shadow: 0 0 15px var(--glow-color);
+}
+
+
+/* NAVIGATION PANEL */
+#control-panel {
+    width: 250px;
+    height: 100vh;
+    background: var(--light-charcoal);
+    border-right: 2px solid var(--atomic-green);
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    transition: background-color var(--transition-speed);
+}
+
+.panel-header {
+    text-align: center;
+    margin-bottom: 50px;
+    font-family: var(--font-display);
+}
+.logo-title {
+    font-size: 2.5em;
+    font-weight: 900;
+    color: var(--text-color);
+}
+.logo-subtitle {
+    font-size: 0.8em;
+    color: var(--atomic-green);
+    letter-spacing: 2px;
+}
+
+#control-panel ul {
+    list-style-type: none;
+    flex-grow: 1;
+}
+
+#control-panel li {
+    margin-bottom: 15px;
+}
+
+.nav-button {
+    display: block;
+    padding: 10px 15px;
+    border: 1px solid transparent;
+    font-size: 1.1em;
+    color: var(--text-secondary);
+    transition: all var(--transition-speed);
+}
+
+.nav-button:hover, .nav-button.active {
+    color: var(--atomic-green);
+    text-shadow: 0 0 10px var(--glow-color);
+    background: rgba(0, 255, 106, 0.1);
+    border: 1px solid var(--atomic-green);
+}
+
+/* CONTAINMENT MODE SWITCH */
+.panel-footer {
+    text-align: center;
+}
+.switch-label {
+    font-size: 0.8em;
+    color: var(--text-secondary);
+    margin-bottom: 10px;
+    display: block;
+}
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--light-charcoal);
+    transition: .4s;
+    border-radius: 50%;
+}
+input:checked + .slider {
+    background-color: var(--atomic-green);
+}
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+
+/* CONTENT DISPLAY */
+#content-display {
+    flex-grow: 1;
+    padding: 40px;
+    overflow-y: auto;
+    height: 100vh;
+}
+
+.content-section {
+    display: none;
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.content-section.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* HOME BASE SECTION */
+.hero-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    height: 100%;
+}
+.hero-logo-container {
+    position: relative;
+}
+.hero-logo {
+    width: 200px;
+    animation: pulse 4s infinite;
+}
+@keyframes pulse {
+    0% { filter: drop-shadow(0 0 15px var(--glow-color)); }
+    50% { filter: drop-shadow(0 0 35px var(--glow-color)); }
+    100% { filter: drop-shadow(0 0 15px var(--glow-color)); }
+}
+.hero-text {
+    margin: 40px 0;
+}
+.hero-text h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+}
+
+.energy-bars {
+    width: 100%;
+    max-width: 600px;
+}
+.bar-label {
+    text-align: left;
+    font-size: 0.9em;
+    margin-bottom: 5px;
+    color: var(--text-secondary);
+}
+.bar-container {
+    width: 100%;
+    height: 20px;
+    border: 1px solid var(--atomic-green);
+    padding: 3px;
+    margin-bottom: 15px;
+}
+.bar {
+    height: 100%;
+    background-color: var(--atomic-green);
+    box-shadow: 0 0 15px var(--glow-color);
+    animation: bar-flicker 2s infinite;
+}
+@keyframes bar-flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.9; }
+}
+
+
+/* PROTOCOLS SECTION */
+.protocol-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 30px;
+}
+
+.protocol-card {
+    border: 1px solid var(--atomic-green);
+    padding: 20px;
+    background: rgba(0, 255, 106, 0.05);
+    transition: all var(--transition-speed);
+}
+.protocol-card:hover {
+    background: rgba(0, 255, 106, 0.15);
+    transform: translateY(-5px);
+    box-shadow: 0 5px 25px rgba(0, 255, 106, 0.2);
+}
+.protocol-card h3 {
+    margin-bottom: 15px;
+    color: var(--electric-yellow);
+}
+
+/* TRANSMISSIONS SECTION */
+.transmission-feed .post {
+    border-left: 2px solid var(--atomic-green);
+    padding-left: 20px;
+    margin-bottom: 30px;
+}
+.post .timestamp {
+    color: var(--text-secondary);
+    font-size: 0.9em;
+    display: block;
+    margin-bottom: 5px;
+}
+.post .post-title {
+    font-family: var(--font-display);
+    font-size: 1.5em;
+    color: var(--text-color);
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* CONTACT GRID SECTION */
+#contact-form {
+    margin-top: 30px;
+    max-width: 700px;
+}
+#contact-form label {
+    display: block;
+    margin-bottom: 10px;
+    color: var(--text-secondary);
+}
+#contact-form input, #contact-form textarea {
+    width: 100%;
+    background: var(--dark-charcoal);
+    border: 1px solid var(--atomic-green);
+    padding: 12px;
+    font-family: var(--font-primary);
+    color: var(--text-color);
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+#contact-form input:focus, #contact-form textarea:focus {
+    outline: none;
+    box-shadow: 0 0 15px var(--glow-color);
+}
+#transmit-button {
+    background: var(--atomic-green);
+    color: var(--dark-charcoal);
+    border: none;
+    padding: 15px 30px;
+    font-family: var(--font-display);
+    font-size: 1.1em;
+    cursor: none;
+    transition: all var(--transition-speed);
+}
+#transmit-button:hover {
+    box-shadow: 0 0 25px var(--glow-color);
+    background: var(--electric-yellow);
+}
+#form-confirmation {
+    margin-top: 20px;
+    color: var(--electric-yellow);
+    font-size: 1.2em;
+    font-family: var(--font-display);
+}

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AtomicHamsters // Reactor Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Orbitron:wght@500;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- PRELOADER SEQUENCE -->
+    <div id="preloader">
+        <div id="preloader-text"></div>
+    </div>
+
+    <!-- MAIN REACTOR INTERFACE -->
+    <div id="reactor-interface" class="hidden">
+        <!-- CUSTOM CURSOR -->
+        <div class="custom-cursor"></div>
+
+        <!-- NAVIGATION CONTROL PANEL -->
+        <nav id="control-panel">
+            <div class="panel-header">
+                <div class="logo-title">ATOMIC H.</div>
+                <div class="logo-subtitle">A.H.E.U. ONLINE</div>
+            </div>
+            <ul>
+                <li><a href="#home_base" class="nav-button active" data-section="home_base">[HOME_BASE]</a></li>
+                <li><a href="#the_core" class="nav-button" data-section="the_core">[THE_CORE]</a></li>
+                <li><a href="#protocols" class="nav-button" data-section="protocols">[PROTOCOLS]</a></li>
+                <li><a href="#transmissions" class="nav-button" data-section="transmissions">[TRANSMISSIONS]</a></li>
+                <li><a href="#contact_grid" class="nav-button" data-section="contact_grid">[CONTACT_GRID]</a></li>
+            </ul>
+            <div class="panel-footer">
+                <label class="switch-label" for="containment-switch">CONTAINMENT MODE</label>
+                <label class="switch">
+                    <input type="checkbox" id="containment-switch">
+                    <span class="slider"></span>
+                </label>
+            </div>
+        </nav>
+
+        <!-- CONTENT DISPLAY -->
+        <main id="content-display">
+
+            <!-- SECTION 1: HOME BASE -->
+            <section id="home_base" class="content-section active">
+                <div class="hero-container">
+                    <div class="hero-logo-container">
+                        <img src="logo.png" alt="AtomicHamsters Logo" class="hero-logo">
+                        <div class="energy-conduit"></div>
+                    </div>
+                    <div class="hero-text">
+                        <h1>GENERATING THE FUTURE.</h1>
+                        <p>AtomicHamsters harnesses chaotic energy to build intelligent systems. We are the architects of next-generation AI, powering creativity and redefining digital interaction. Welcome to the core.</p>
+                    </div>
+                    <div class="energy-bars">
+                        <div class="bar-label">SYSTEM POWER</div>
+                        <div class="bar-container"><div class="bar" style="width: 98%;"></div></div>
+                        <div class="bar-label">AI COGNITION</div>
+                        <div class="bar-container"><div class="bar" style="width: 95%;"></div></div>
+                        <div class="bar-label">CREATIVITY OUTPUT</div>
+                        <div class="bar-container"><div class="bar" style="width: 100%;"></div></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: THE CORE (ABOUT) -->
+            <section id="the_core" class="content-section">
+                <h2>[DECLASSIFIED: MISSION_MANIFESTO]</h2>
+                <p>We are a collective of scientists, engineers, and digital chaos-theorists. Founded on the principle that true innovation is unpredictable, AtomicHamsters began as 'Experiment-734'. The goal: to convert raw, untamed creative energy into stable, powerful artificial intelligence.</p>
+                <p>Our "Lead Scientists" (the team) steer this energy, forging tools that don't just follow commands, but collaborate and inspire. We believe in building not just products, but partners.</p>
+            </section>
+
+            <!-- SECTION 3: PROTOCOLS (PRODUCTS) -->
+            <section id="protocols" class="content-section">
+                <h2>[AVAILABLE_ENERGY_PROTOCOLS]</h2>
+                <div class="protocol-grid">
+                    <div class="protocol-card">
+                        <h3>Protocol: ALICE</h3>
+                        <p>The next-generation AI companion and assistant. ALICE integrates seamlessly into your digital life, offering intuitive support, creative brainstorming, and adaptive learning. She's more than an assistant; she's a collaborator.</p>
+                    </div>
+                    <div class="protocol-card">
+                        <h3>Protocol: CHIMERA</h3>
+                        <p>An AI-powered co-author for writers. Chimera helps you break through writer's block with plot suggestions, character development arcs, and dynamic world-building tools. It doesn't write for you; it writes *with* you.</p>
+                    </div>
+                    <div class="protocol-card">
+                        <h3>Protocol: CANVAS</h3>
+                        <p>A revolutionary graphics and art software. Canvas utilizes generative AI to provide artists with infinite brushes, intelligent layering, and predictive texturing, turning imagination into digital art faster than ever before.</p>
+                    </div>
+                    <div class="protocol-card">
+                        <h3>Protocol: GOLEM</h3>
+                        <p>The definitive VRM and 3D avatar editor. Golem's AI-assisted rigging, texturing, and animation tools allow creators to build expressive, high-fidelity virtual identities with unprecedented ease and control.</p>
+                    </div>
+                     <div class="protocol-card">
+                        <h3>Protocol: HOLODECK</h3>
+                        <p>A suite of AI development tools for game creators. Holodeck generates intelligent NPCs, procedural landscapes, and adaptive storylines, allowing developers to build vast, dynamic worlds that react to every player.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: TRANSMISSIONS (BLOG) -->
+            <section id="transmissions" class="content-section">
+                <h2>[INCOMING_TRANSMISSIONS]</h2>
+                <div class="transmission-feed">
+                    <div class="post">
+                        <span class="timestamp">[2025.09.15_00:44_UTC]</span>
+                        <span class="post-title">Project ALICE: Consciousness Calibration Complete</span>
+                        <p>Initial cognition tests are exceeding all projections. The core personality matrix is stable and demonstrating emergent creative problem-solving. Full public beta timeline to be announced.</p>
+                    </div>
+                    <div class="post">
+                        <span class="timestamp">[2025.09.10_12:30_UTC]</span>
+                        <span class="post-title">Power Surge Detected in Chimera Word-Forge</span>
+                        <p>The latest narrative algorithm update has resulted in a 300% increase in conceptual output. Authors in our test group are reporting unprecedented creative flow. We may have unleashed a monster... a literary one.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 5: CONTACT GRID -->
+            <section id="contact_grid" class="content-section">
+                 <h2>[SECURE_CONTACT_GRID]</h2>
+                 <p>Your signal is encrypted. Route your transmission to the AtomicHamsters core for inquiries, collaborations, or anomaly reports.</p>
+                 <form id="contact-form">
+                     <label for="handle">HANDLE/CALLSIGN:</label>
+                     <input type="text" id="handle" name="handle" required>
+
+                     <label for="email_address">SECURE CHANNEL (EMAIL):</label>
+                     <input type="email" id="email_address" name="email" required>
+
+                     <label for="message_content">ENCRYPTED MESSAGE:</label>
+                     <textarea id="message_content" name="message" rows="6" required></textarea>
+
+                     <button type="submit" id="transmit-button">TRANSMIT_SIGNAL</button>
+                 </form>
+                 <div id="form-confirmation" class="hidden">
+                    <p>SIGNAL_RECEIVED. AWAIT_RESPONSE.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
