@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Road to Kilbray - Music Player</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .player-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        
+        .now-playing {
+            text-align: center;
+            margin: 20px 0;
+            min-height: 30px;
+        }
+        
+        .track-list {
+            list-style-type: none;
+            padding: 0;
+        }
+        
+        .track-item {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .track-item:hover {
+            background-color: #f0f0f0;
+        }
+        
+        .track-item.playing {
+            background-color: #e3f2fd;
+            font-weight: bold;
+        }
+        
+        .controls {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        button {
+            padding: 10px 15px;
+            margin: 0 5px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #2196F3;
+            color: white;
+        }
+        
+        button:hover {
+            background-color: #0b7dda;
+        }
+        
+        button:disabled {
+            background-color: #bbbbbb;
+            cursor: not-allowed;
+        }
+        
+        .progress-container {
+            width: 100%;
+            background-color: #ddd;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .progress-bar {
+            height: 10px;
+            background-color: #2196F3;
+            border-radius: 5px;
+            width: 0%;
+        }
+        
+        .time-display {
+            text-align: center;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <div class="player-container">
+        <h1>The Road to Kilbray</h1>
+        
+        <div class="now-playing" id="nowPlaying">Select a song to play</div>
+        
+        <div class="controls">
+            <button id="prevBtn" disabled>Previous</button>
+            <button id="playPauseBtn">Play</button>
+            <button id="nextBtn" disabled>Next</button>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        
+        <div class="time-display">
+            <span id="currentTime">0:00</span> / <span id="duration">0:00</span>
+        </div>
+        
+        <ul class="track-list" id="trackList">
+            <!-- Tracks will be loaded dynamically -->
+        </ul>
+    </div>
+
+    <audio id="audioPlayer"></audio>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get DOM elements
+            const audioPlayer = document.getElementById('audioPlayer');
+            const playPauseBtn = document.getElementById('playPauseBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const progressBar = document.getElementById('progressBar');
+            const currentTimeDisplay = document.getElementById('currentTime');
+            const durationDisplay = document.getElementById('duration');
+            const nowPlayingDisplay = document.getElementById('nowPlaying');
+            const trackList = document.getElementById('trackList');
+            
+            let tracks = [];
+            let currentTrackIndex = -1;
+            let isPlaying = false;
+            
+            // Load the music index
+            fetch('music/index.json')
+                .then(response => response.json())
+                .then(data => {
+                    tracks = data.tracks;
+                    renderTrackList();
+                    
+                    // Enable navigation buttons if there are tracks
+                    if (tracks.length > 0) {
+                        prevBtn.disabled = false;
+                        nextBtn.disabled = false;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading music index:', error);
+                    trackList.innerHTML = '<li class="track-item">Error loading music tracks</li>';
+                });
+            
+            // Render the track list
+            function renderTrackList() {
+                trackList.innerHTML = '';
+                tracks.forEach((track, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'track-item';
+                    li.textContent = track.title;
+                    li.dataset.index = index;
+                    
+                    li.addEventListener('click', () => {
+                        loadTrack(index);
+                        playTrack();
+                    });
+                    
+                    trackList.appendChild(li);
+                });
+            }
+            
+            // Load a specific track
+            function loadTrack(index) {
+                if (index >= 0 && index < tracks.length) {
+                    currentTrackIndex = index;
+                    audioPlayer.src = tracks[index].path;
+                    
+                    // Update UI
+                    updateTrackListUI();
+                    nowPlayingDisplay.textContent = `Now Playing: ${tracks[index].title}`;
+                    
+                    // Load the track metadata
+                    audioPlayer.load();
+                }
+            }
+            
+            // Play the current track
+            function playTrack() {
+                audioPlayer.play()
+                    .then(() => {
+                        isPlaying = true;
+                        playPauseBtn.textContent = 'Pause';
+                    })
+                    .catch(error => {
+                        console.error('Error playing track:', error);
+                    });
+            }
+            
+            // Pause the current track
+            function pauseTrack() {
+                audioPlayer.pause();
+                isPlaying = false;
+                playPauseBtn.textContent = 'Play';
+            }
+            
+            // Play or pause the current track
+            function togglePlayPause() {
+                if (isPlaying) {
+                    pauseTrack();
+                } else {
+                    playTrack();
+                }
+            }
+            
+            // Play the next track
+            function playNextTrack() {
+                if (tracks.length === 0) return;
+                
+                currentTrackIndex = (currentTrackIndex + 1) % tracks.length;
+                loadTrack(currentTrackIndex);
+                playTrack();
+            }
+            
+            // Play the previous track
+            function playPrevTrack() {
+                if (tracks.length === 0) return;
+                
+                currentTrackIndex = (currentTrackIndex - 1 + tracks.length) % tracks.length;
+                loadTrack(currentTrackIndex);
+                playTrack();
+            }
+            
+            // Update the track list UI to show currently playing
+            function updateTrackListUI() {
+                const trackItems = document.querySelectorAll('.track-item');
+                trackItems.forEach((item, index) => {
+                    if (index === currentTrackIndex) {
+                        item.classList.add('playing');
+                    } else {
+                        item.classList.remove('playing');
+                    }
+                });
+            }
+            
+            // Format time in seconds to MM:SS format
+            function formatTime(seconds) {
+                const mins = Math.floor(seconds / 60);
+                const secs = Math.floor(seconds % 60);
+                return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+            }
+            
+            // Event listeners
+            playPauseBtn.addEventListener('click', togglePlayPause);
+            nextBtn.addEventListener('click', playNextTrack);
+            prevBtn.addEventListener('click', playPrevTrack);
+            
+            // Update progress bar as track plays
+            audioPlayer.addEventListener('timeupdate', () => {
+                const currentTime = audioPlayer.currentTime;
+                const duration = audioPlayer.duration || 1; // Avoid division by zero
+                
+                // Update progress bar
+                const progressPercent = (currentTime / duration) * 100;
+                progressBar.style.width = `${progressPercent}%`;
+                
+                // Update time displays
+                currentTimeDisplay.textContent = formatTime(currentTime);
+                if (!isNaN(duration)) {
+                    durationDisplay.textContent = formatTime(duration);
+                }
+            });
+            
+            // When a track ends, play the next one
+            audioPlayer.addEventListener('ended', playNextTrack);
+            
+            // Initialize UI
+            playPauseBtn.textContent = 'Play';
+        });
+    </script>
+</body>
+</html>
