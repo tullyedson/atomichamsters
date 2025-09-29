@@ -146,8 +146,6 @@
                 .then(response => response.json())
                 .then(data => {
                     tracks = data.tracks;
-                    // Sort tracks by track number to ensure correct order
-                    tracks.sort((a, b) => a.trackNumber - b.trackNumber);
                     renderTrackList();
                     
                     // Enable navigation buttons if there are tracks
@@ -167,7 +165,7 @@
                 tracks.forEach((track, index) => {
                     const li = document.createElement('li');
                     li.className = 'track-item';
-                    li.textContent = `${track.trackNumber}. ${track.title}`;
+                    li.textContent = track.title;
                     li.dataset.index = index;
                     
                     li.addEventListener('click', () => {
