@@ -2,39 +2,46 @@
   "album": "The Road to Kilbray",
   "tracks": [
     {
-      "title": "Ashes in the Veins",
-      "filename": "Ashes in the Veins.mp3",
-      "path": "music/The Road to Kilbray/Ashes in the Veins.mp3"
-    },
-    {
-      "title": "Drown in the Silence",
-      "filename": "Drown in the Silence.mp3",
-      "path": "music/The Road to Kilbray/Drown in the Silence.mp3"
-    },
-    {
-      "title": "I Will Rise Like Fire",
-      "filename": "I Will Rise Like Fire.mp3",
-      "path": "music/The Road to Kilbray/I Will Rise Like Fire.mp3"
-    },
-    {
       "title": "Joy on the Road",
       "filename": "Joy on the Road.mp3",
-      "path": "music/The Road to Kilbray/Joy on the Road.mp3"
+      "path": "music/The Road to Kilbray/Joy on the Road.mp3",
+      "trackNumber": 7
     },
     {
       "title": "Run with Me",
       "filename": "Run with Me.mp3",
-      "path": "music/The Road to Kilbray/Run with Me.mp3"
+      "path": "music/The Road to Kilbray/Run with Me.mp3",
+      "trackNumber": 1
+    },
+    {
+      "title": "Drown in the Silence",
+      "filename": "Drown in the Silence.mp3",
+      "path": "music/The Road to Kilbray/Drown in the Silence.mp3",
+      "trackNumber": 4
     },
     {
       "title": "Surrender to the Static",
       "filename": "Surrender to the Static.mp3",
-      "path": "music/The Road to Kilbray/Surrender to the Static.mp3"
+      "path": "music/The Road to Kilbray/Surrender to the Static.mp3",
+      "trackNumber": 3
+    },
+    {
+      "title": "I Will Rise Like Fire",
+      "filename": "I Will Rise Like Fire.mp3",
+      "path": "music/The Road to Kilbray/I Will Rise Like Fire.mp3",
+      "trackNumber": 6
+    },
+    {
+      "title": "Ashes in the Veins",
+      "filename": "Ashes in the Veins.mp3",
+      "path": "music/The Road to Kilbray/Ashes in the Veins.mp3",
+      "trackNumber": 5
     },
     {
       "title": "You Were My Always",
       "filename": "You Were My Always.mp3",
-      "path": "music/The Road to Kilbray/You Were My Always.mp3"
+      "path": "music/The Road to Kilbray/You Were My Always.mp3",
+      "trackNumber": 2
     }
   ]
 }
