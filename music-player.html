@@ -183,8 +183,16 @@
             
             // Load the music index
             fetch('music/index.json')
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! status: ${response.status}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
+                    if (!data.albums || !Array.isArray(data.albums)) {
+                        throw new Error('Invalid data structure: albums array not found');
+                    }
                     albums = data.albums;
                     renderAlbumList();
                     
@@ -195,7 +203,7 @@
                 })
                 .catch(error => {
                     console.error('Error loading music index:', error);
-                    albumList.innerHTML = '<li class="album-item">Error loading albums</li>';
+                    albumList.innerHTML = `<li class="album-item">Error: ${error.message}</li>`;
                     trackList.innerHTML = '<li class="track-item">Error loading music tracks</li>';
                 });
             
