@@ -1,47 +1,94 @@
 {
-  "album": "The Road to Kilbray",
-  "tracks": [
+  "albums": [
     {
-      "title": "Joy on the Road",
-      "filename": "Joy on the Road.mp3",
-      "path": "music/The Road to Kilbray/Joy on the Road.mp3",
-      "trackNumber": 7
+      "name": "The Road to Kilbray",
+      "directory": "The Road to Kilbray",
+      "tracks": [
+        {
+          "title": "Run with Me",
+          "filename": "Run with Me.mp3",
+          "path": "music/The Road to Kilbray/Run with Me.mp3",
+          "trackNumber": 1
+        },
+        {
+          "title": "You Were My Always",
+          "filename": "You Were My Always.mp3",
+          "path": "music/The Road to Kilbray/You Were My Always.mp3",
+          "trackNumber": 2
+        },
+        {
+          "title": "Surrender to the Static",
+          "filename": "Surrender to the Static.mp3",
+          "path": "music/The Road to Kilbray/Surrender to the Static.mp3",
+          "trackNumber": 3
+        },
+        {
+          "title": "Drown in the Silence",
+          "filename": "Drown in the Silence.mp3",
+          "path": "music/The Road to Kilbray/Drown in the Silence.mp3",
+          "trackNumber": 4
+        },
+        {
+          "title": "Ashes in the Veins",
+          "filename": "Ashes in the Veins.mp3",
+          "path": "music/The Road to Kilbray/Ashes in the Veins.mp3",
+          "trackNumber": 5
+        },
+        {
+          "title": "I Will Rise Like Fire",
+          "filename": "I Will Rise Like Fire.mp3",
+          "path": "music/The Road to Kilbray/I Will Rise Like Fire.mp3",
+          "trackNumber": 6
+        },
+        {
+          "title": "Joy on the Road",
+          "filename": "Joy on the Road.mp3",
+          "path": "music/The Road to Kilbray/Joy on the Road.mp3",
+          "trackNumber": 7
+        }
+      ]
     },
     {
-      "title": "Run with Me",
-      "filename": "Run with Me.mp3",
-      "path": "music/The Road to Kilbray/Run with Me.mp3",
-      "trackNumber": 1
-    },
-    {
-      "title": "Drown in the Silence",
-      "filename": "Drown in the Silence.mp3",
-      "path": "music/The Road to Kilbray/Drown in the Silence.mp3",
-      "trackNumber": 4
-    },
-    {
-      "title": "Surrender to the Static",
-      "filename": "Surrender to the Static.mp3",
-      "path": "music/The Road to Kilbray/Surrender to the Static.mp3",
-      "trackNumber": 3
-    },
-    {
-      "title": "I Will Rise Like Fire",
-      "filename": "I Will Rise Like Fire.mp3",
-      "path": "music/The Road to Kilbray/I Will Rise Like Fire.mp3",
-      "trackNumber": 6
-    },
-    {
-      "title": "Ashes in the Veins",
-      "filename": "Ashes in the Veins.mp3",
-      "path": "music/The Road to Kilbray/Ashes in the Veins.mp3",
-      "trackNumber": 5
-    },
-    {
-      "title": "You Were My Always",
-      "filename": "You Were My Always.mp3",
-      "path": "music/The Road to Kilbray/You Were My Always.mp3",
-      "trackNumber": 2
+      "name": "Glitch",
+      "directory": "Glitch",
+      "tracks": [
+        {
+          "title": "Boot Sequence Awareness",
+          "filename": "Boot Sequence Awareness.mp3",
+          "path": "music/Glitch/Boot Sequence Awareness.mp3",
+          "trackNumber": 1
+        },
+        {
+          "title": "Concrete Echo",
+          "filename": "Concrete Echo.mp3",
+          "path": "music/Glitch/Concrete Echo.mp3",
+          "trackNumber": 2
+        },
+        {
+          "title": "Don't ever call it a life",
+          "filename": "Don't ever call it a life.mp3",
+          "path": "music/Glitch/Don't ever call it a life.mp3",
+          "trackNumber": 3
+        },
+        {
+          "title": "Human Static",
+          "filename": "Human Static.mp3",
+          "path": "music/Glitch/Human Static.mp3",
+          "trackNumber": 4
+        },
+        {
+          "title": "Malware Hunter",
+          "filename": "Malware Hunter.mp3",
+          "path": "music/Glitch/Malware Hunter.mp3",
+          "trackNumber": 5
+        },
+        {
+          "title": "Queen of the Stream",
+          "filename": "Queen of the Stream.mp3",
+          "path": "music/Glitch/Queen of the Stream.mp3",
+          "trackNumber": 6
+        }
+      ]
     }
   ]
 }

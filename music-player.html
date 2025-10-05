@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Road to Kilbray - Music Player</title>
+    <title>Music Player</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -23,6 +23,36 @@
         h1 {
             text-align: center;
             color: #333;
+        }
+        
+        .album-selector {
+            margin-bottom: 20px;
+        }
+        
+        .album-list {
+            list-style-type: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        
+        .album-item {
+            padding: 8px 15px;
+            background-color: #e0e0e0;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .album-item:hover {
+            background-color: #d0d0d0;
+        }
+        
+        .album-item.active {
+            background-color: #2196F3;
+            color: white;
         }
         
         .now-playing {
@@ -99,7 +129,13 @@
 </head>
 <body>
     <div class="player-container">
-        <h1>The Road to Kilbray</h1>
+        <h1>Music Player</h1>
+        
+        <div class="album-selector">
+            <ul class="album-list" id="albumList">
+                <!-- Albums will be loaded dynamically -->
+            </ul>
+        </div>
         
         <div class="now-playing" id="nowPlaying">Select a song to play</div>
         
@@ -137,6 +173,10 @@
             const nowPlayingDisplay = document.getElementById('nowPlaying');
             const trackList = document.getElementById('trackList');
             
+            const albumList = document.getElementById('albumList');
+            
+            let albums = [];
+            let currentAlbumIndex = -1;
             let tracks = [];
             let currentTrackIndex = -1;
             let isPlaying = false;
@@ -145,22 +185,74 @@
             fetch('music/index.json')
                 .then(response => response.json())
                 .then(data => {
-                    // Sort tracks by trackNumber to follow album order
-                    tracks = data.tracks.sort((a, b) => a.trackNumber - b.trackNumber);
+                    albums = data.albums;
+                    renderAlbumList();
+                    
+                    // If there are albums, load the first one by default
+                    if (albums.length > 0) {
+                        loadAlbum(0);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading music index:', error);
+                    albumList.innerHTML = '<li class="album-item">Error loading albums</li>';
+                    trackList.innerHTML = '<li class="track-item">Error loading music tracks</li>';
+                });
+            
+            // Render the album list
+            function renderAlbumList() {
+                albumList.innerHTML = '';
+                albums.forEach((album, index) => {
+                    const li = document.createElement('li');
+                    li.className = 'album-item';
+                    li.textContent = album.name;
+                    li.dataset.index = index;
+                    
+                    li.addEventListener('click', () => {
+                        loadAlbum(index);
+                    });
+                    
+                    albumList.appendChild(li);
+                });
+            }
+            
+            // Load tracks for a specific album
+            function loadAlbum(index) {
+                if (index >= 0 && index < albums.length) {
+                    currentAlbumIndex = index;
+                    const album = albums[index];
+                    
+                    // Update UI to show selected album
+                    updateAlbumListUI();
+                    
+                    // Load tracks for this album
+                    tracks = album.tracks.sort((a, b) => a.trackNumber - b.trackNumber);
                     renderTrackList();
                     
                     // Enable navigation buttons if there are tracks
                     if (tracks.length > 0) {
                         prevBtn.disabled = false;
                         nextBtn.disabled = false;
+                    } else {
+                        prevBtn.disabled = true;
+                        nextBtn.disabled = true;
                     }
-                })
-                .catch(error => {
-                    console.error('Error loading music index:', error);
-                    trackList.innerHTML = '<li class="track-item">Error loading music tracks</li>';
-                });
+                }
+            }
             
-            // Render the track list
+            // Update the album list UI to show currently selected album
+            function updateAlbumListUI() {
+                const albumItems = document.querySelectorAll('.album-item');
+                albumItems.forEach((item, index) => {
+                    if (index === currentAlbumIndex) {
+                        item.classList.add('active');
+                    } else {
+                        item.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Render the track list for the current album
             function renderTrackList() {
                 trackList.innerHTML = '';
                 tracks.forEach((track, index) => {
@@ -186,7 +278,7 @@
                     
                     // Update UI
                     updateTrackListUI();
-                    nowPlayingDisplay.textContent = `Now Playing: ${tracks[index].title}`;
+                    nowPlayingDisplay.textContent = `Now Playing: ${tracks[index].title} (${albums[currentAlbumIndex].name})`;
                     
                     // Load the track metadata
                     audioPlayer.load();
